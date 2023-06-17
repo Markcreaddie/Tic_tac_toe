@@ -1,18 +1,24 @@
-require "./lib/player.rb"
-require "./lib/tic_tac_toe.rb"
-require "./lib/board.rb"
+require './lib/player'
+require './lib/tic_tac_toe'
+require './lib/board'
 
+player_x = Player.new('player_x', 'X')
+player_o = Player.new('player_o', 'O')
 
-player_x = Player.new("player_x","X")
-player_o = Player.new("player_o","O")
+3.times do |num|
+  if num > 0
+    puts 'Do you want to play another round? [Y/N]'
+    response = gets.chomp.upcase
+    unless %w[Y N].include?(response)
+      puts "Write 'Y' or'N'"
+      redo
+    end
+  end
+  break if response == 'N'
 
-game1= TicTacToe.new(player_x,player_o)
-board=Board.new()
-p board.has_winner?
+  key = Board.new
+  game = TicTacToe.new(player_x, player_o, key)
+  game.play
+end
 
-board.set_value(1,"X")
-board.set_value(4,"X")
-board.set_value(7,"X")
-
-p board.has_winner?
-
+puts('GAME OVER!!')
